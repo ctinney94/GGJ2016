@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class explosion : MonoBehaviour {
+public class exploder : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {

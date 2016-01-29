@@ -7,7 +7,7 @@ public class rocket : MonoBehaviour
     public Transform target;
     public float forceX, forceY;
     Rigidbody2D rig;
-
+    public ParticleSystem PS;
     // Use this for initialization
     void Start()
     {
@@ -45,13 +45,22 @@ public class rocket : MonoBehaviour
             forceY = 5+(target.position.y - transform.position.y) * mult;
             rig.AddForce(Vector2.up * Time.deltaTime * forceY, ForceMode2D.Impulse);
         }
+
+
+        Vector3 targetDir = target.position - transform.position;
+
+        float angle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg;
+        Quaternion targetRot = Quaternion.AngleAxis(angle, Vector3.forward);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, Time.deltaTime * 5);
     }
 
     void OnCollisionEnter2D(Collision2D col)
    {
        if (col.gameObject.GetComponent<rocket>() == null)
        {
-           Debug.Log("hit!");
+           PS.transform.parent = null;
+           PS.Stop();
+           Destroy(PS.gameObject, 2.5f);
            GameObject explo = Instantiate(explosion) as GameObject;
            explo.transform.position = transform.position;
            Destroy(gameObject);

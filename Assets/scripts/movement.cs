@@ -40,7 +40,11 @@ public class movement : MonoBehaviour {
             inputThings();
 
         if (transform.rotation.eulerAngles.z != 0)
-            transform.rotation = Quaternion.Euler(Vector3.zero);
+        {
+            Quaternion rot = transform.rotation;
+            rot.eulerAngles = new Vector3(0, rot.eulerAngles.y,0);
+            transform.rotation = rot;
+        }
 
         if (hotness > 0)
             hotness--;
@@ -95,12 +99,20 @@ public class movement : MonoBehaviour {
         }
 
         if (Input.GetKey(KeyCode.D))
+        {
+            if (transform.rotation.eulerAngles.y != 0)
+                transform.rotation = Quaternion.Euler(Vector3.zero);
+            
             GetComponent<Rigidbody2D>().AddForce(new Vector2(1 * moveSpeed, 0), ForceMode2D.Impulse);
-
+        }
 
         if (Input.GetKey(KeyCode.A))
-            GetComponent<Rigidbody2D>().AddForce(new Vector2(-1 * moveSpeed, 0), ForceMode2D.Impulse);
+        {
+            if (transform.rotation.eulerAngles.y == 0)
+                transform.rotation = Quaternion.Euler(new Vector3(0,180,0));
 
+            GetComponent<Rigidbody2D>().AddForce(new Vector2(-1 * moveSpeed, 0), ForceMode2D.Impulse);
+        }
 
         if (Input.GetKey(KeyCode.W))
         {
@@ -129,7 +141,7 @@ public class movement : MonoBehaviour {
                     audio.clip = missileSound;
                     audio.Play();
                     GameObject rocket = Instantiate(missiles) as GameObject;
-                    rocket.transform.position = transform.position + new Vector3(0, 3f, 0);
+                    rocket.transform.position = transform.position + new Vector3(0.6f, 5f, 0);
 
                     if (GetComponentInChildren<targetFinder>().targets.Count > 0)
                     {

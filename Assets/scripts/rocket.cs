@@ -10,6 +10,8 @@ public class rocket : MonoBehaviour
     public ParticleSystem PS;
     public AudioClip missileHit;
 
+    float aliveTime = 0;
+
     // Use this for initialization
     void Start()
     {
@@ -18,7 +20,10 @@ public class rocket : MonoBehaviour
     }
 
     // Update is called once per frame
-	void Update () {
+	void Update () 
+    {
+        aliveTime += Time.deltaTime;
+        Debug.Log(aliveTime);
         forceX = 15;
         forceY = 15;
 
@@ -58,16 +63,30 @@ public class rocket : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D col)
-   {
-       if (col.gameObject.GetComponent<rocket>() == null)
-       {
-           PS.transform.parent = null;
-           PS.Stop();
-           Destroy(PS.gameObject, 2.5f);
-           GameObject explo = Instantiate(explosion) as GameObject;
-           explo.transform.position = transform.position;
-           explo.GetComponent<exploder>().sound = missileHit;
-           Destroy(gameObject);
-       }
+    {
+        if (aliveTime < 0.2)
+        {
+            if (col.gameObject.tag == "Player")
+                Physics2D.IgnoreCollision(col.collider, GetComponent<Collider2D>());
+
+            Invoke("revert", 0.9f);
+        }
+        else
+        {
+            if (col.gameObject.GetComponent<rocket>() == null)
+            {
+                PS.transform.parent = null;
+                PS.Stop();
+                Destroy(PS.gameObject, 2.5f);
+                GameObject explo = Instantiate(explosion) as GameObject;
+                explo.transform.position = transform.position;
+                explo.GetComponent<exploder>().sound = missileHit;
+                Destroy(gameObject);
+            }
+        }
+    }
+    void revert()
+    {
+        Physics2D.IgnoreCollision(GameObject.Find("mech").GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
     }
 }

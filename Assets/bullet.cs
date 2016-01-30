@@ -9,6 +9,10 @@ public class bullet : MonoBehaviour {
 
     public GameObject explosion;
 	// Use this for initialization
+    void Update()
+    {
+    }
+
     void Start()
     {
         Camera.main.GetComponent<CameraShake>().shake = true;
@@ -32,7 +36,7 @@ public class bullet : MonoBehaviour {
                 GameObject explo = Instantiate(explosion) as GameObject;
                 explo.GetComponent<exploder>().sound = hitSounds[Random.Range(0, hitSounds.Length - 1)];
                 explo.transform.position = transform.position;
-                explo.transform.localScale = new Vector3(10, 10, 1);
+                explo.transform.localScale = new Vector3(.75f, .75f, 1);
             }
             Destroy(gameObject);
         }

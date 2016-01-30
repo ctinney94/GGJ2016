@@ -8,6 +8,8 @@ public class rocket : MonoBehaviour
     public float forceX, forceY;
     Rigidbody2D rig;
     public ParticleSystem PS;
+    public AudioClip missileHit;
+
     // Use this for initialization
     void Start()
     {
@@ -63,6 +65,7 @@ public class rocket : MonoBehaviour
            Destroy(PS.gameObject, 2.5f);
            GameObject explo = Instantiate(explosion) as GameObject;
            explo.transform.position = transform.position;
+           explo.GetComponent<exploder>().sound = missileHit;
            Destroy(gameObject);
        }
     }

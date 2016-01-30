@@ -1,0 +1,110 @@
+fileFormatVersion: 2
+guid: 38410f5dde879594791376de963d6017
+timeCreated: 1454106351
+licenseType: Pro
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Back Leg
+    21300002: Body
+    21300004: Front Leg
+    21300006: Front Foot
+    21300008: Back Foot
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Back Leg
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 51
+        width: 34
+        height: 44
+      alignment: 9
+      pivot: {x: .474904448, y: .763731718}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Body
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 44
+        width: 132
+        height: 132
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Front Leg
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 34
+        height: 44
+      alignment: 9
+      pivot: {x: .474904448, y: .767609835}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Front Foot
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 9
+        width: 38
+        height: 10
+      alignment: 9
+      pivot: {x: .113792323, y: .329349518}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Back Foot
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 12
+        width: 37
+        height: 10
+      alignment: 9
+      pivot: {x: .107966445, y: .329350173}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

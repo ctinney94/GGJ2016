@@ -9,7 +9,7 @@ public class exploder : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         Camera.main.GetComponent<CameraShake>().shake = true;
-        Camera.main.GetComponent<CameraShake>().shakeRange = transform.localScale / 60;
+        Camera.main.GetComponent<CameraShake>().shakeRange = transform.localScale /2;
 
         audio = GetComponent<AudioSource>();
         audio.clip = sound;

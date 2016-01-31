@@ -2,7 +2,6 @@
 using System.Collections;
 public class CameraShake : MonoBehaviour
 {
-    public GameObject CameraParent;//attached parent object of camera
     /// <summary>
     /// To be called by anything that wishes to shakeadat camera
     /// </summary>
@@ -14,6 +13,11 @@ public class CameraShake : MonoBehaviour
     Vector3 originalPos;
     public bool shake;
 
+    void Start()
+    {
+        originalPos = transform.position;
+    }
+
     void Update()
     {
         #region perlin noise
@@ -24,12 +28,12 @@ public class CameraShake : MonoBehaviour
             {
                 shakeTimer = 0;
                 shake = false;
-                Camera.main.transform.localPosition = originalPos;
+                Camera.main.transform.position = originalPos;
             }
             else
             {
                 shakeTimer += Time.deltaTime;
-                Camera.main.transform.localPosition = originalPos + Vector3.Scale(SmoothRandom.GetVector2(shakeSpeed--), shakeRange);
+                Camera.main.transform.position = originalPos + Vector3.Scale(SmoothRandom.GetVector2(shakeSpeed--), shakeRange);
 
                 shakeSpeed *= -1;
                 shakeRange = new Vector3(shakeRange.x * -1, shakeRange.y);
@@ -41,10 +45,5 @@ public class CameraShake : MonoBehaviour
     public void shakeCamNew()
     {
         GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1,1)*10, Random.Range(-1,1))*10, ForceMode2D.Impulse);
-    }
-
-    public void ShakeCamera(float x, float y)
-    {
-        iTween.ShakePosition(CameraParent, iTween.Hash("x", x, "y", y, "isLocal", false, "time", 0.6f));
     }
 }

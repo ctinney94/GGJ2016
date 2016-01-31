@@ -23,7 +23,6 @@ public class rocket : MonoBehaviour
 	void Update () 
     {
         aliveTime += Time.deltaTime;
-        Debug.Log(aliveTime);
         forceX = 15;
         forceY = 15;
 
@@ -64,17 +63,24 @@ public class rocket : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (aliveTime < 0.2)
+        if (col.gameObject.tag == "world")
+        {
+            Physics2D.IgnoreCollision(col.collider, GetComponent<Collider2D>());
+        }
+        else if (aliveTime < 0.2)
         {
             if (col.gameObject.tag == "Player")
                 Physics2D.IgnoreCollision(col.collider, GetComponent<Collider2D>());
 
-            Invoke("revert", 0.9f);
+            Invoke("revert", 0.2f);
         }
         else
         {
             if (col.gameObject.GetComponent<rocket>() == null)
             {
+                if (col.gameObject.tag == "Player")
+                    col.gameObject.GetComponent<movement>().HP -= 40;
+
                 PS.transform.parent = null;
                 PS.Stop();
                 Destroy(PS.gameObject, 2.5f);

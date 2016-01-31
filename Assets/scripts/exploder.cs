@@ -25,7 +25,7 @@ public class exploder : MonoBehaviour {
         }
 
         if (col.gameObject.tag == "enemy")
-            col.gameObject.GetComponent<enemy>().HP -= Random.Range(60, 80);
+            col.gameObject.GetComponent<enemy>().HP -= Random.Range(70, 90);
     }
 
     IEnumerator changCol()

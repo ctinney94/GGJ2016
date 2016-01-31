@@ -106,8 +106,10 @@ public class movement : MonoBehaviour {
     void stopHammerDMG()
     {
         hammer.GetComponent<Collider2D>().enabled = false;
+        hammer.GetComponent<AudioSource>().Play();
+        swinging = false;
     }
-
+    bool swinging = false;
     void inputThings()
     {
         if (alive)
@@ -169,10 +171,13 @@ public class movement : MonoBehaviour {
 
             if (Input.GetMouseButtonDown(1))
             {
-                HAMMERanim.Play("Mech_HAMMER");
-                hammer.GetComponent<Collider2D>().enabled = true;
-                hammer.GetComponent<AudioSource>().Play();
-                Invoke("stopHammerDMG", 0.5f);
+                if (!swinging)
+                {
+                    swinging = true;
+                    HAMMERanim.Play("Mech_HAMMER");
+                    hammer.GetComponent<Collider2D>().enabled = true;
+                    Invoke("stopHammerDMG", 0.5f);
+                }
             }
             if (Input.GetKey(KeyCode.D))
             {

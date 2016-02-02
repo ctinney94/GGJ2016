@@ -87,6 +87,7 @@ public class rocket : MonoBehaviour
                 GameObject explo = Instantiate(explosion) as GameObject;
                 explo.transform.position = transform.position;
                 explo.GetComponent<exploder>().sound = missileHit;
+                explo.GetComponent<exploder>().doDamage =true;
                 Destroy(gameObject);
             }
         }

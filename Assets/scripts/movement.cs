@@ -35,7 +35,7 @@ public class movement : MonoBehaviour {
     {
         if (GetComponent<Rigidbody2D>().velocity.x < 0.2f && GetComponent<Rigidbody2D>().velocity.x > -0.2f)
             anim.SetBool("running", false);
-        if (GetComponent<Rigidbody2D>().velocity.y < 0.05f && GetComponent<Rigidbody2D>().velocity.y  > -0.05f)
+        if (GetComponent<Rigidbody2D>().velocity.y < 0.05f && GetComponent<Rigidbody2D>().velocity.y > -0.05f)
             anim.SetBool("grounded", true);
 
         jetpackBar.value = jetpackJuice;
@@ -46,16 +46,25 @@ public class movement : MonoBehaviour {
             jetpackJuice++;
 
         #region combo
-        comboUI.GetComponentsInChildren<Image>()[1].fillAmount -= 0.005f;
-        if (comboUI.GetComponentsInChildren<Image>()[1].fillAmount == 0 && combo > 1)
+        if (alive)
         {
-            combo--;
-            comboUI.GetComponentsInChildren<Image>()[1].fillAmount = 1;
-            comboUI.GetComponentInChildren<Text>().text = "x"+combo;
+            comboUI.GetComponentsInChildren<Image>()[1].fillAmount -= 0.005f;
+            if (comboUI.GetComponentsInChildren<Image>()[1].fillAmount == 0 && combo > 1)
+            {
+                combo--;
+                comboUI.GetComponentsInChildren<Image>()[1].fillAmount = 1;
+                comboUI.GetComponentInChildren<Text>().text = "x" + combo;
+            }
         }
         #endregion
-        if (HP > 0)
-            inputThings();
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Application.LoadLevel("main");
+        }
+
+
+        inputThings();
 
         //Keep upright at all times
         if (transform.rotation.eulerAngles.z != 0)
@@ -105,10 +114,24 @@ public class movement : MonoBehaviour {
 
     void stopHammerDMG()
     {
+        hammer.GetComponent<SpriteRenderer>().material.color = Color.white;
         hammer.GetComponent<Collider2D>().enabled = false;
         hammer.GetComponent<AudioSource>().Play();
         swinging = false;
     }
+    IEnumerator swingHammer()
+    {
+        HAMMERanim.Play("Mech_HAMMER");
+        yield return new WaitForSeconds(0.2f);
+        hammer.GetComponent<Collider2D>().enabled = true;
+        yield return new WaitForSeconds(0.3f);
+        
+        hammer.GetComponent<AudioSource>().Play();
+        yield return new WaitForSeconds(0.35f);
+        hammer.GetComponent<Collider2D>().enabled = false;
+        swinging = false;
+    }
+
     bool swinging = false;
     void inputThings()
     {
@@ -174,9 +197,7 @@ public class movement : MonoBehaviour {
                 if (!swinging)
                 {
                     swinging = true;
-                    HAMMERanim.Play("Mech_HAMMER");
-                    hammer.GetComponent<Collider2D>().enabled = true;
-                    Invoke("stopHammerDMG", 0.5f);
+                    StartCoroutine(swingHammer());
                 }
             }
             if (Input.GetKey(KeyCode.D))

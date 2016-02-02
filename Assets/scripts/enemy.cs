@@ -54,7 +54,7 @@ public class enemy : MonoBehaviour {
             //ded
             alive = false;
             Mum.disown(gameObject);
-            rig.velocity = Vector3.zero;
+            //rig.velocity = Vector3.zero;
             GetComponent<Collider2D>().enabled = false;
             GetComponent<AudioSource>().Play();
             PS.transform.parent = null;
@@ -94,8 +94,14 @@ public class enemy : MonoBehaviour {
                 Color tempCol = SR[i].color;
                 tempCol.a = Mathf.Lerp(SR[i].color.a, 0, Time.deltaTime);
                 SR[i].color = tempCol;
-                if (SR[i].color.a == 0)
+                if (SR[i].color.a == 0 || transform.position.y < -20)
+                {
+                    if (targetThing != null)
+                    {
+                        targetThing.GetComponent<targetFinder>().targets.Remove(gameObject);
+                    }
                     Destroy(gameObject);
+                }
             }
         }
     }
@@ -111,9 +117,9 @@ public class enemy : MonoBehaviour {
         }
         else if (col.gameObject.tag == "rocket")
         {
-            HP -= Random.Range(85, 100);
+            HP -= 100;
 
-            rig.AddForce(new Vector2(col.transform.rotation.z, col.transform.rotation.w), ForceMode2D.Impulse);
+            rig.AddForce(new Vector2(col.transform.rotation.z, col.transform.rotation.w) * 100, ForceMode2D.Impulse);
 
             PS.Emit(((100 - HP) / 5));
         }
